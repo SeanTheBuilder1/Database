@@ -11,6 +11,5 @@ void Parser::parse(int argc, char* argv[]){
             std::cout << "lmao\n";
             database.saveAlgo(4, std::string(argv[i+1]));
         }
-
     }
 }

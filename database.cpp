@@ -5,32 +5,32 @@ void Data::Init(){
 }
 
 void Data::loadData(){
-    std::vector<std::string>data;
-	file.open("data.txt", std::ios::in);
+    std::vector<std::string> data;
+	file.open("data.txt", std::fstream::in);
 	std::string a;
 	while (getline(file, a)) {
 		data.push_back(a);
 	}
 	file.close();
+	file.clear();
     dataSave = data;
 }
 
 void Data::saveAlgo(int line, std::string replacement) {
     line = line - 1;
-	std::vector<std::string>data;
-	file.open("data.txt", std::ios::in);
+	std::vector<std::string> data;
+	file.open("data.txt", std::fstream::in);
 	std::string a;
 	while (getline(file, a)) {
 		data.push_back(a);
 	}
 	file.close();
-	std::ofstream write;
-	file.open("data.txt", std::ios::out);
+	file.open("data.txt", std::fstream::out);
 	data[line] = replacement;
 	int i=0;
 	for (; i < static_cast<int>(data.size()-1); i++) {
-		write << data[i] << "\n";
+		file << data[i] << "\n";
 	}
-	write << data[i];
+	file << data[i];
 	file.close();
 }
