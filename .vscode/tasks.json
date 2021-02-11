@@ -1,0 +1,23 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe build active file",
+            "command": "g++",
+            "args": [
+                "-o",
+                "main.exe",
+                "-g",
+                "${workspaceFolder}\\*.cpp",
+                
+                
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            
+        }
+    ],
+    "version": "2.0.0"
+}
