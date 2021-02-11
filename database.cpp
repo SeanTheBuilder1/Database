@@ -25,6 +25,9 @@ void Data::saveAlgo(int line, std::string replacement) {
 		data.push_back(a);
 	}
 	file.close();
+	if(data.size() < line){
+		data.resize(line + 1);
+	}
 	file.open("data.txt", std::fstream::out);
 	data[line] = replacement;
 	int i=0;

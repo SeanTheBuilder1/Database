@@ -9,7 +9,7 @@ void Parser::parse(int argc, char* argv[]){
         }
         if(strcmp(argv[i], "-n") == 0){
             std::cout << "lmao\n";
-            database.saveAlgo(4, std::string(argv[i+1]));
+            database.saveAlgo(100, std::string(argv[i+1]));
         }
     }
 }
