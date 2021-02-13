@@ -5,11 +5,11 @@ void Parser::parse(int argc, char* argv[]){
         std::cout << argv[i] << '\n';
         if(strcmp(argv[i], "-o") == 0){
             std::cout << "hello\n";
-            database.saveAlgo(2, argv[i+1]);
+            database.saveAlgo(atoi(argv[i+1]), std::string(argv[i+2]));
         }
         if(strcmp(argv[i], "-n") == 0){
             std::cout << "lmao\n";
-            database.saveAlgo(100, std::string(argv[i+1]));
+            database.saveAlgo(atoi(argv[i+1]), std::string(argv[i+2]));
         }
     }
 }
