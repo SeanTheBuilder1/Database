@@ -1,0 +1,6 @@
+Usage: main [options] [parameters]
+
+Options:
+    --print                 Print database as list
+    -o [index] [string]     Replace index number in list as string given
+    -n [index] [string]     same as -o

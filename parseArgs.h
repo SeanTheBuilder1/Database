@@ -9,6 +9,7 @@
 
 namespace slib{
     bool isDigit(std::string word);
+    std::vector<std::string> loadTxt(std::string filename);
 }
 
 

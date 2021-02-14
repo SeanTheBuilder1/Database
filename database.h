@@ -9,15 +9,16 @@
 class Data{
 private:
     std::vector<std::string> dataSave;
+    std::string filePath;
     std::fstream file; 
-    void loadData();
+    std::vector<std::string> loadData();
 public:
     Data(){
         Init();
     };
     void Init();
     void saveAlgo(int line, std::string replacement);
-    
+    void printList();
 };
 
 #endif //DATABASE

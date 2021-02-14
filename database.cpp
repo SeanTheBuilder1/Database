@@ -4,9 +4,9 @@ void Data::Init(){
     loadData();
 }
 
-void Data::loadData(){
+std::vector<std::string> Data::loadData(){
     std::vector<std::string> data;
-	file.open("data.txt", std::fstream::in);
+	file.open(filePath, std::fstream::in);
 	std::string a;
 	while (getline(file, a)) {
 		data.push_back(a);
@@ -14,21 +14,18 @@ void Data::loadData(){
 	file.close();
 	file.clear();
     dataSave = data;
+	return data;
 }
 
 void Data::saveAlgo(int line, std::string replacement) {
     line = line - 1;
 	std::vector<std::string> data;
-	file.open("data.txt", std::fstream::in);
-	std::string a;
-	while (getline(file, a)) {
-		data.push_back(a);
-	}
-	file.close();
+	data = loadData();
+	file.open(filePath, std::fstream::in);
 	if(data.size() < line){
 		data.resize(line + 1);
 	}
-	file.open("data.txt", std::fstream::out);
+	file.open(filePath, std::fstream::out);
 	data[line] = replacement;
 	int i=0;
 	for (; i < static_cast<int>(data.size()-1); i++) {
@@ -37,3 +34,10 @@ void Data::saveAlgo(int line, std::string replacement) {
 	file << data[i];
 	file.close();
 }
+
+void Data::printList(){
+	loadData();
+	for(const std::string& i : dataSave){
+		std::cout << i << '\n';
+	}
+};
