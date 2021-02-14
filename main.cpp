@@ -9,6 +9,5 @@ int main(int argc, char* argv[]){
     std::cout << "starting parse\n";
     
     parser.parse(argc, argv);
-    std::cin.get();
 }
 

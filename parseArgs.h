@@ -2,8 +2,15 @@
 #define PARSE_ARGS
 
 #include <iostream>
-#include "database.h"
 #include <cstring>
+#include <cassert>
+
+#include "database.h"
+
+namespace slib{
+    bool isDigit(std::string word);
+}
+
 
 class Parser{
 private:
