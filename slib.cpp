@@ -3,7 +3,15 @@
 bool slib::isDigit(std::string word){
     for(char i : word){
         if(!isdigit(i)) 
-            return  false;
+            return false;
+    }
+    return true;
+}
+
+bool slib::isDigit(std::string_view view){
+    for(char i : view){
+        if(!isdigit(i))
+            return false;
     }
     return true;
 }
