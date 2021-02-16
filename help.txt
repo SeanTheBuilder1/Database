@@ -1,6 +1,11 @@
 Usage: main [options] [parameters]
 
 Options:
-    --print                 Print database as list
-    -o [index] [string]     Replace index number in list as string given
-    -n [index] [string]     same as -o
+    -print                          Print database as list
+    -table                          Print databas as table with column in class
+    -o [index] [string]             Replace number in list as string given
+    -n [index] [string]             Same as -o
+    -fill [start] [end] [string]    Fills list between given value with string given
+    -cell [column] [row] [string]   Replace cell in table as string given
+
+    --help                          Displays this screen

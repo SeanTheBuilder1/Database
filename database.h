@@ -20,6 +20,8 @@ private:
     std::vector<std::string> loadData();
     void metaParser();
     void saveData(std::vector<std::string>& data);
+    friend class Parser;
+    friend class Item;
 public:
     Data(std::string path = "data.txt"):filePath(path){
         Init();
@@ -32,5 +34,7 @@ public:
     void printList();
     void printTable();
 };
+
+Data& dataGet();
 
 #endif //DATABASE

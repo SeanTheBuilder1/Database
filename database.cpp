@@ -12,6 +12,9 @@ void Data::metaParser(){
 		assert(slib::isDigit(col));
 		columns = stoi(col);	
 	}
+	else if(dataSave[0] == "//list"){
+		columns = 1;
+	}
 }
 
 std::vector<std::string> Data::loadData(){
@@ -35,7 +38,6 @@ void Data::saveAlgo(int line, std::string replacement) {
 	//Get content list of member filePath
 	data = loadData();
 	//If line is higher than list length resize the list
-	std::cout << data.size();
 	if(data.size() < line){
 		data.resize(line);
 	}
@@ -94,5 +96,11 @@ void Data::printTable(){
 			std::cout << '\n';
 		}
 	}
+}
+
+
+Data& dataGet(){
+    static Data data;
+    return data;
 }
 

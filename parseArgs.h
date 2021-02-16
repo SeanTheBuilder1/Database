@@ -12,9 +12,9 @@
 
 class Parser{
 private:
-    Data database;
+    Data& database;
 public:
-    
+    Parser():database(dataGet()){};
     void parse(int argc, char* argv[]);
 };
 
