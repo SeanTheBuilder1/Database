@@ -3,9 +3,9 @@
 
 
 bool Item::readItem(std::string index){
-    std::vector<std::string> temp;
+    std::deque<std::string> temp;
     for(long i = 0; i < database.dataSave.size(); ++i){
-        if((database.dataSave[i] == (std::string("`") + index)) == 1){
+        if(database.dataSave[i] == (std::string("`") + index)){
             for(++i; i < database.dataSave.size(); ++i){
                 if(std::find(database.dataSave[i].begin(), database.dataSave[i].end(), '`') != database.dataSave[i].end()){
                     if(temp.empty()){
@@ -22,13 +22,14 @@ bool Item::readItem(std::string index){
         }
     }
     return false;
-    contents = temp;
-    return true;
 }
 
-bool Item::getContents(std::vector<std::string>& data){
+bool Item::getContents(std::deque<std::string>*& data){
+    //loop through items list and check for index given and give pointer for item
+    //return true if successful
+    //return false if failed
     if(!contents.empty()){
-        data = contents;
+        data = &contents;
         return true;
     }
     else

@@ -85,12 +85,16 @@ void Parser::parse(int argc, char* argv[]){
             auditor.openItem(index);
             if(auditor.exist(index)){
                 if(auditor.getItem(index, item)){
-                    std::vector<std::string> content;
+                    std::deque<std::string>* content;
                     if(item->getContents(content)){
-                        for(auto& i : content){
+                        for(auto& i : *content){
                             std::cout << i << '\n';
                         }
                     }
+                    /*  assert(content);
+                        Test Case
+                        content->emplace_back("hahathisshitworks");
+                        auditor.saveItem(*item);*/
                 }
             }
         }

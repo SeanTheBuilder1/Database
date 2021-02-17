@@ -22,6 +22,7 @@ private:
     void saveData(std::vector<std::string>& data);
     friend class Parser;
     friend class Item;
+    friend class Auditor;
 public:
     Data(std::string path = "data.txt"):filePath(path){
         Init();

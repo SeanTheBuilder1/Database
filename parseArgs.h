@@ -5,6 +5,7 @@
 #include <cstring>
 #include <cassert>
 
+
 #include "database.h"
 #include "auditor.h"
 #include "slib.h"
