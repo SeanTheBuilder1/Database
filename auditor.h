@@ -14,7 +14,9 @@ public:
     void addItem(Item item);
     void openItem(std::string index);
     void saveItem(Item item);
+    bool getItem(std::string index, Item* &item);
 };
 
+Auditor& getAuditor();
 
 #endif //AUDITOR

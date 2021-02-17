@@ -24,7 +24,7 @@ void Parser::parse(int argc, char* argv[]){
             //Replace line's content with given string
             database.saveAlgo(x, std::string(argv[i+2]));
         }
-        if(strcmp(argv[i], "-n") == 0){
+        else if(strcmp(argv[i], "-n") == 0){
             //Check if argument actually exists
             assert(argv[i + 2] != NULL);
             //Check if digit
@@ -38,7 +38,7 @@ void Parser::parse(int argc, char* argv[]){
             database.saveAlgo(x, std::string(argv[i+2]));
         }
 
-        if(strcmp(argv[i], "-fill") == 0){
+        else if(strcmp(argv[i], "-fill") == 0){
             //Check if argument actually exists
             assert(argv[i + 3] != NULL);
             //Check if digit
@@ -50,7 +50,7 @@ void Parser::parse(int argc, char* argv[]){
             database.fillData(x, y, argv[i + 3]);
         }
 
-        if(strcmp(argv[i], "-cell") == 0){
+        else if(strcmp(argv[i], "-cell") == 0){
             assert(argv[i + 3] != NULL);
             //Check if digit
             assert(slib::isDigit(std::string(argv[i + 1])) && slib::isDigit(std::string(argv[i + 2])));
@@ -60,15 +60,15 @@ void Parser::parse(int argc, char* argv[]){
             database.saveCell(x, y, std::string(argv[i + 3]));
         }
 
-        if(strcmp(argv[i], "-print") == 0){
+        else if(strcmp(argv[i], "-print") == 0){
             database.printList();
         }
 
-        if(strcmp(argv[i], "-table") == 0){
+        else if(strcmp(argv[i], "-table") == 0){
             database.printTable();
         }
 
-        if(strcmp(argv[i], "--help") == 0){
+        else if(strcmp(argv[i], "--help") == 0){
             //Check if argument actually exists
             assert(argv[i] != NULL);
             //Load help file content and print
@@ -76,7 +76,24 @@ void Parser::parse(int argc, char* argv[]){
                 std::cout << i << '\n';
             }
         }
-
+        
+        else if(strcmp(argv[i], "-item") == 0){
+            assert(argv[i + 1] != NULL);
+            Item* item;
+            std::string index{argv[i + 1]};
+            j = j + 1;
+            auditor.openItem(index);
+            if(auditor.exist(index)){
+                if(auditor.getItem(index, item)){
+                    std::vector<std::string> content;
+                    if(item->getContents(content)){
+                        for(auto& i : content){
+                            std::cout << i << '\n';
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

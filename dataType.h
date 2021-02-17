@@ -12,12 +12,12 @@
 class Item{
 private:
     std::vector<std::string> contents;
-    std::vector<std::string> item;
     std::string index;
     Data& database;
 public:
     Item(std::string i):database(dataGet()), index(i){};
-    void readItem(std::string index);
+    bool readItem(std::string index);
+    bool getContents(std::vector<std::string>& data);
     std::string getIndex();
 };
 

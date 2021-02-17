@@ -56,7 +56,7 @@ void Data::fillData(int start, int end, std::string replacement){
 	if(data.size() < end){
 		data.resize(end);
 	}
-	for(int i = start; i < end; ++i){
+	for(long i = start; i < end; ++i){
 		data[i] = replacement;
 	}
 	saveData(data);
@@ -71,7 +71,7 @@ void Data::saveCell(int x, int y, std::string replacement){
 
 void Data::saveData(std::vector<std::string>& data){
 	file.open(filePath, std::fstream::out);
-	int i=0;
+	long i=0;
 	//Save file from list
 	for (; i < static_cast<int>(data.size()-1); i++) {
 		file << data[i] << "\n";
@@ -90,7 +90,7 @@ void Data::printList(){
 
 void Data::printTable(){
 	loadData();
-	for(int i = 1; i <= dataSave.size(); ++i){
+	for(long i = 1; i <= dataSave.size(); ++i){
 		std::cout << dataSave[i + 1] << "	";
 		if(i % columns == 0){
 			std::cout << '\n';

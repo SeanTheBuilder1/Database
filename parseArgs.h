@@ -6,6 +6,7 @@
 #include <cassert>
 
 #include "database.h"
+#include "auditor.h"
 #include "slib.h"
 
 
@@ -13,8 +14,9 @@
 class Parser{
 private:
     Data& database;
+    Auditor& auditor;
 public:
-    Parser():database(dataGet()){};
+    Parser():database(dataGet()), auditor(getAuditor()){};
     void parse(int argc, char* argv[]);
 };
 

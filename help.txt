@@ -7,5 +7,6 @@ Options:
     -n [index] [string]             Same as -o
     -fill [start] [end] [string]    Fills list between given value with string given
     -cell [column] [row] [string]   Replace cell in table as string given
+    -item [index]                   Open an item in list and print contents of item 
 
     --help                          Displays this screen
