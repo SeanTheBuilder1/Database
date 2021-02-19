@@ -118,6 +118,9 @@ void Parser::parse(int argc, char* argv[]){
 
             auditor.addItem(temp);
         }
+        else if(strcmp(argv[i], "-clear") == 0){
+            database.clearData();
+        }
     }
 }
 

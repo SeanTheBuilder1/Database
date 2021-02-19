@@ -7,6 +7,7 @@
 #include <vector>
 #include <cassert>
 #include <string_view>
+#include <algorithm>
 
 
 #include "slib.h"
@@ -34,6 +35,7 @@ public:
     void saveCell(int x, int y, std::string replacement);
     void printList();
     void printTable();
+    void clearData();
 };
 
 Data& dataGet();

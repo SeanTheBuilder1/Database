@@ -5,16 +5,54 @@ void Data::Init(){
 }
 
 void Data::metaParser(){
-	if(dataSave[0] == "//table"){
+	bool error = false;
+	if(dataSave.empty()){
+		dataSave.emplace_back("//list");
+		dataSave.emplace_back("//1");
+		dataSave.emplace_back("`");
+		saveData(dataSave);
+	}
+	else if(3 > dataSave.size()){
+		dataSave.clear();
+		dataSave.emplace_back("//list");
+		dataSave.emplace_back("//1");
+		dataSave.emplace_back("`");
+		error = true;
+	}
+
+	else if(dataSave[0] == "//table"){
 		std::string col{dataSave[1]};
 		assert(col.size() > 2);
 		col.erase(0, 2);
-		assert(slib::isDigit(col));
-		columns = stoi(col);	
+		if(slib::isDigit(col)){
+			columns = stoi(col);
+		}
+		else{
+			dataSave[0] = "//list";
+			dataSave[1] = 1;
+			error = true;
+		}
 	}
 	else if(dataSave[0] == "//list"){
 		columns = 1;
 	}
+	else if(std::find(dataSave.begin(), dataSave.end(), std::string("`")) == dataSave.end()){
+		if(*dataSave.end() != "`"){
+			dataSave[2] = '`';
+			error = true;
+		}
+	}
+	else{
+		dataSave[0] == "//list";
+		dataSave[1] == "//1";
+		error = true;
+	}
+	if(error){
+		saveData(dataSave);
+		std::cout << "A file error occured\nError has been partially fixed, please try again\n";
+		std::exit(0);
+	}
+
 }
 
 std::vector<std::string> Data::loadData(){
@@ -96,6 +134,14 @@ void Data::printTable(){
 			std::cout << '\n';
 		}
 	}
+}
+
+void Data::clearData(){
+	dataSave.clear();
+	dataSave.emplace_back("//list");
+	dataSave.emplace_back("//1");
+	dataSave.emplace_back("`");
+	saveData(dataSave);
 }
 
 

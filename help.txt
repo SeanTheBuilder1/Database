@@ -3,11 +3,12 @@ Usage: main [options] [parameters]
 Options:
     -print                          Print database as list
     -table                          Print databas as table with column in class
+    -clear                          Clear database and add database format
     -o [index] [string]             Replace number in list as string given
     -n [index] [string]             Same as -o
     -fill [start] [end] [string]    Fills list between given value with string given
     -cell [column] [row] [string]   Replace cell in table as string given
     -item [index]                   Open an item in list and print contents of item
     -additem [index] [...]          Adds an item to the database with value of given arguments
-
+    
     --help                          Displays this screen
