@@ -4,7 +4,7 @@
 
 void Parser::parse(int argc, char* argv[]){
     int j = 0;
-    for(int i = 1; i < argc; ++i){
+    for(long i = 1; i < argc; ++i){
         //Pauser
         if(j > 0){
             j = j - 1;
@@ -91,12 +91,32 @@ void Parser::parse(int argc, char* argv[]){
                             std::cout << i << '\n';
                         }
                     }
+                    auditor.addItem(*item);
                     /*  assert(content);
                         Test Case
                         content->emplace_back("hahathisshitworks");
                         auditor.saveItem(*item);*/
                 }
             }
+        }
+        else if(strcmp(argv[i], "-additem") == 0){
+            assert(argv[i + 1] != NULL);
+            Item temp{argv[i + 1]};
+            j = j + 1;
+            std::deque<std::string>* content;
+            temp.getContents(content);
+            for(long k = i + 2; k < argc; ++k){
+                std::string str{argv[k]};
+                if(std::find(str.begin(), str.end(), '-') == str.end()){
+                    content->emplace_back(std::string(argv[k]));
+                    j = j + 1;
+                }
+                else{
+                    break;
+                }
+            }
+
+            auditor.addItem(temp);
         }
     }
 }

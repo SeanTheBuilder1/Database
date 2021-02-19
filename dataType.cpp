@@ -25,15 +25,17 @@ bool Item::readItem(std::string index){
 }
 
 bool Item::getContents(std::deque<std::string>*& data){
-    //loop through items list and check for index given and give pointer for item
     //return true if successful
     //return false if failed
     if(!contents.empty()){
         data = &contents;
         return true;
     }
-    else
+    else{
+        data = &contents;
+        return true;
         return false;
+    }
 }
 
 std::string Item::getIndex(){

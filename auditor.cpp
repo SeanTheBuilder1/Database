@@ -8,8 +8,18 @@ bool Auditor::exist(std::string index){
     return false;
 }
 
-void Auditor::addItem(Item item){
-    std::cout << "not yet \n";
+void Auditor::addItem(Item& item){
+    if(std::find(database.dataSave.begin(), database.dataSave.end(), ("`" + item.getIndex())) == std::end(database.dataSave)){
+        auto it = std::find(database.dataSave.begin(), database.dataSave.end(), "`");
+        std::deque<std::string> temp = item.contents;
+        temp.insert(temp.begin(), "`" + item.getIndex());
+        temp.emplace_back("`");
+        database.dataSave.erase(it);
+        database.dataSave.insert(it, temp.begin(), temp.end());
+        database.saveData(database.dataSave);
+        audit.emplace_back(item.getIndex());
+        items.emplace_back(item);
+    }
 }
 
 bool Auditor::openItem(std::string index){
@@ -30,11 +40,11 @@ void Auditor::saveItem(Item& item){
     long end{0};
     bool stopper = false;
     //index line number of item for next iterator
-    for(long i = 0; i < item.database.dataSave.size();  ++i){
-        if((item.database.dataSave[i] == (std::string("`") + item.getIndex())) == 1){
+    for(long i = 0; i < database.dataSave.size();  ++i){
+        if((database.dataSave[i] == (std::string("`") + item.getIndex())) == 1){
             beg = (i + 1);
-            for(++i; i < item.database.dataSave.size(); ++i){
-                if(std::find(item.database.dataSave[i].begin(), item.database.dataSave[i].end(), '`') != item.database.dataSave[i].end()){
+            for(++i; i < database.dataSave.size(); ++i){
+                if(std::find(database.dataSave[i].begin(), database.dataSave[i].end(), '`') != database.dataSave[i].end()){
                     end = i;
                     stopper = true;
                     break;
@@ -47,9 +57,9 @@ void Auditor::saveItem(Item& item){
     //if successful erase old contents of item from database copy and insert new contents 
     //and save database copy to merge to data.txt
     if(stopper){
-        item.database.dataSave.erase(item.database.dataSave.begin() + beg, item.database.dataSave.begin() + end);
-        item.database.dataSave.insert(item.database.dataSave.begin() + beg, item.contents.begin(), item.contents.end());
-        item.database.saveData(item.database.dataSave);
+        database.dataSave.erase(database.dataSave.begin() + beg, database.dataSave.begin() + end);
+        database.dataSave.insert(database.dataSave.begin() + beg, item.contents.begin(), item.contents.end());
+        database.saveData(database.dataSave);
     }
 }
 
