@@ -1,6 +1,8 @@
 # Compile
-To compile using g++ use command
+To compile using g++ use command:
+```
 g++ -O3 -std=c++17 -static-libgcc -static-libstdc++ -o main.exe -g ./*.h ./*.cpp
+```
 
 # Database
 A custom C++ database editor in command line. Uses custom database format.
