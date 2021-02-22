@@ -6,14 +6,12 @@ void Data::Init(){
 
 void Data::metaParser(){
 	bool error = false;
-	//Check if file is empty
 	if(dataSave.empty()){
 		dataSave.emplace_back("//list");
 		dataSave.emplace_back("//1");
 		dataSave.emplace_back("`");
 		saveData(dataSave);
 	}
-	//Check for minimum format
 	else if(3 > dataSave.size()){
 		dataSave.clear();
 		dataSave.emplace_back("//list");
@@ -21,40 +19,34 @@ void Data::metaParser(){
 		dataSave.emplace_back("`");
 		error = true;
 	}
-	//Check if database is table
+
 	else if(dataSave[0] == "//table"){
 		std::string col{dataSave[1]};
 		assert(col.size() > 2);
 		col.erase(0, 2);
-		//Check if database is valid tablie
 		if(slib::isDigit(col)){
 			columns = stoi(col);
 		}
-		//Reset format if failed
 		else{
 			dataSave[0] = "//list";
 			dataSave[1] = 1;
 			error = true;
 		}
 	}
-	//Check if list
 	else if(dataSave[0] == "//list"){
 		columns = 1;
 	}
 	else if(std::find(dataSave.begin(), dataSave.end(), std::string("`")) == dataSave.end()){
-		//Check if item header exists, else add a header
 		if(*dataSave.end() != "`"){
 			dataSave[2] = '`';
 			error = true;
 		}
 	}
-	//If all cases don't appl reset format
 	else{
 		dataSave[0] == "//list";
 		dataSave[1] == "//1";
 		error = true;
 	}
-	//Print the Error
 	if(error){
 		saveData(dataSave);
 		std::cout << "A file error occured\nError has been partially fixed, please try again\n";
@@ -137,7 +129,7 @@ void Data::printList(){
 void Data::printTable(){
 	loadData();
 	for(long i = 1; i <= dataSave.size(); ++i){
-		std::cout << dataSave[i + 1] << "\t";
+		std::cout << dataSave[i + 1] << "	";
 		if(i % columns == 0){
 			std::cout << '\n';
 		}
@@ -145,7 +137,6 @@ void Data::printTable(){
 }
 
 void Data::clearData(){
-	//Clear database and reformat
 	dataSave.clear();
 	dataSave.emplace_back("//list");
 	dataSave.emplace_back("//1");

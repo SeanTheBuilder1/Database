@@ -25,13 +25,15 @@ bool Item::readItem(std::string index){
 }
 
 bool Item::getContents(std::deque<std::string>*& data){
-    //return true if successful and not nullptr
+    //return true if successful
     //return false if failed
-    if(&contents != nullptr){
+    if(!contents.empty()){
         data = &contents;
         return true;
     }
     else{
+        data = &contents;
+        return true;
         return false;
     }
 }
