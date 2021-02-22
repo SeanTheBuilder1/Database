@@ -1,7 +1,13 @@
 # Compile
 To compile using g++ use command:
 ```
-g++ -O3 -std=c++17 -static-libgcc -static-libstdc++ -o main.exe -g ./*.h ./*.cpp
+g++ -O3 -std=c++17 -static-libgcc -static-libstdc++ -o main.exe -g ./src/*.h ./src/*.cpp
+```
+
+# Using CMake
+To compile using CMake
+```
+cmake . -G "MinGW Makefiles"
 ```
 
 # Database
