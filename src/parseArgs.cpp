@@ -37,6 +37,10 @@ void Parser::parse(int argc, char* argv[]){
             //Replace line's content with given string
             database.saveAlgo(x, std::string(argv[i+2]));
         }
+        else if(strcmp(argv[i], "-p") == 0){
+            //Preload all
+            auditor.loadAll();
+        }
 
         else if(strcmp(argv[i], "-fill") == 0){
             //Check if argument actually exists
@@ -120,6 +124,19 @@ void Parser::parse(int argc, char* argv[]){
         }
         else if(strcmp(argv[i], "-clear") == 0){
             database.clearData();
+        }
+        else if(strcmp(argv[i], "-delitem") == 0){
+            assert(argv[i + 1] != NULL);
+            auditor.delItem(std::string(argv[i + 1]));
+        }
+        else if(strcmp(argv[i], "-tempname") == 0){
+            for(auto& i : auditor.items){
+                std::deque<std::string>* temp;
+                i.getContents(temp);
+                for(auto& j : *temp){
+                    std::cout << j << "\n";
+                }
+            }
         }
     }
 }
