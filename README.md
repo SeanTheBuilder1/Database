@@ -8,6 +8,7 @@ g++ -O3 -std=c++17 -static-libgcc -static-libstdc++ -o main.exe -g ./src/*.h ./s
 To compile using CMake
 ```
 cmake . -G "MinGW Makefiles"
+make
 ```
 
 # Database
