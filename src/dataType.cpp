@@ -47,6 +47,24 @@ bool Item::getContents(std::deque<std::string>*& data){
     }
 }
 
+void Item::sort(){
+    std::sort(contents.begin(), contents.end());
+}
+
+void Item::sort(std::function<bool(std::string, std::string)> func){
+    std::sort(contents.begin(), contents.end(), func);
+}
+
+void Item::sort(std::deque<std::string>::iterator x, std::deque<std::string>::iterator y){
+    std::sort(x, y);
+}
+void Item::sort(std::deque<std::string>::iterator x, std::deque<std::string>::iterator y, std::function<bool(std::string, std::string)> func){
+    std::sort(x, y, func);
+}
+
+
+
+
 std::string Item::getIndex(){
     return index;
 }

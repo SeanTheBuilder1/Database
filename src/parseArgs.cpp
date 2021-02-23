@@ -108,18 +108,18 @@ void Parser::parse(int argc, char* argv[]){
             Item temp{argv[i + 1]};
             j = j + 1;
             std::deque<std::string>* content;
-            temp.getContents(content);
-            for(long k = i + 2; k < argc; ++k){
-                std::string str{argv[k]};
-                if(std::find(str.begin(), str.end(), '-') == str.end()){
-                    content->emplace_back(std::string(argv[k]));
-                    j = j + 1;
-                }
-                else{
-                    break;
+            if(temp.getContents(content)){
+                for(long k = i + 2; k < argc; ++k){
+                    std::string str{argv[k]};
+                    if(std::find(str.begin(), str.end(), '-') == str.end()){
+                        content->emplace_back(std::string(argv[k]));
+                        j = j + 1;
+                    }
+                    else{
+                        break;
+                    }
                 }
             }
-
             auditor.addItem(temp);
         }
         else if(strcmp(argv[i], "-clear") == 0){
@@ -132,9 +132,10 @@ void Parser::parse(int argc, char* argv[]){
         else if(strcmp(argv[i], "-tempname") == 0){
             for(auto& k : auditor.items){
                 std::deque<std::string>* temp;
-                k.getContents(temp);
-                for(auto& l : *temp){
-                    std::cout << l << "\n";
+                if(k.getContents(temp)){
+                    for(auto& l : *temp){
+                        std::cout << l << "\n";
+                    }
                 }
             }
         }
@@ -146,9 +147,10 @@ void Parser::parse(int argc, char* argv[]){
             long index = atoi(argv[i + 2]) - 1;
             Item* temp = nullptr;
             auditor.openItem(std::string(argv[i + 1]));
-            auditor.getItem(std::string(argv[i + 1]), temp);
-            temp->editItem(index, argv[i + 3]);
-            auditor.saveItem(*temp);
+            if(auditor.getItem(std::string(argv[i + 1]), temp)){
+                temp->editItem(index, argv[i + 3]);
+                auditor.saveItem(*temp);
+            }
         }
         else if(strcmp(argv[i], "-search") == 0){
             assert(argv[i + 1] != NULL);
@@ -164,6 +166,16 @@ void Parser::parse(int argc, char* argv[]){
             std::vector<std::string> temp = searcher.searchItemPreload(argv[i + 1]);
             for(auto& k : temp){
                 std::cout << k << '\n';
+            }
+        }
+        else if(strcmp(argv[i], "-sort") == 0){
+            assert(argv[i + 1] != NULL);
+            j = j + 1;
+            Item* item;
+            auditor.openItem(argv[i + 1]);
+            if(auditor.getItem(std::string(argv[i + 1]), item)){
+                item->sort();
+                auditor.saveItem(*item);
             }
         }
     }
