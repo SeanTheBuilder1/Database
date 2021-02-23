@@ -11,4 +11,5 @@ int main(int argc, char* argv[]){
     //Parse command line arguments
     parser.parse(argc, argv);
     std::cout << "Program ended\n";
+    std::cin.get();
 }

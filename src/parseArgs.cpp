@@ -158,6 +158,14 @@ void Parser::parse(int argc, char* argv[]){
                 std::cout << k << '\n';
             }
         }
+        else if(strcmp(argv[i], "-psearch") == 0){
+            assert(argv[i + 1] != NULL);
+            j = j + 1;
+            std::vector<std::string> temp = searcher.searchItemPreload(argv[i + 1]);
+            for(auto& k : temp){
+                std::cout << k << '\n';
+            }
+        }
     }
 }
 

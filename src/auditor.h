@@ -12,6 +12,7 @@ private:
     std::deque<Item> items;
     Data& database;
     friend class Parser;
+    friend class Searcher;
 public:
     Auditor():database(dataGet()){};
     bool exist(const std::string& index);

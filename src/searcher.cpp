@@ -17,6 +17,19 @@ std::vector<std::string> Searcher::searchItem(const std::string& keyword){
     return validIndices;
 }
 
+std::vector<std::string> Searcher::searchItemPreload(const std::string& keyword){
+    std::vector<std::string> validIndices;
+    Auditor& auditor = getAuditor();
+    for(auto& i : auditor.items){
+        std::deque<std::string>* contents;
+        i.getContents(contents);
+        if(std::find(contents->begin(), contents->end(), keyword) != contents->end()){
+            validIndices.push_back(i.getIndex());
+        }
+    }
+    return validIndices;
+}
+
 Searcher& getSearcher(){
     static Searcher searcher;
     return searcher;
