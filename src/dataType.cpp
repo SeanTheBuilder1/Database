@@ -30,6 +30,11 @@ bool Item::readItem(std::string index){
     return false;
 }
 
+void Item::editItem(long index, const std::string& replacement){
+    assert(index < contents.size());
+    contents[index] = replacement;
+}
+
 bool Item::getContents(std::deque<std::string>*& data){
     //return true if successful and not nullptr
     //return false if failed

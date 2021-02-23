@@ -76,8 +76,8 @@ void Parser::parse(int argc, char* argv[]){
             //Check if argument actually exists
             assert(argv[i] != NULL);
             //Load help file content and print
-            for(auto i : slib::loadTxt("help.txt")){
-                std::cout << i << '\n';
+            for(auto k : slib::loadTxt("help.txt")){
+                std::cout << k << '\n';
             }
         }
         
@@ -91,8 +91,8 @@ void Parser::parse(int argc, char* argv[]){
                 if(auditor.getItem(index, item)){
                     std::deque<std::string>* content;
                     if(item->getContents(content)){
-                        for(auto& i : *content){
-                            std::cout << i << '\n';
+                        for(auto& k : *content){
+                            std::cout << k << '\n';
                         }
                     }
                     auditor.addItem(*item);
@@ -130,13 +130,25 @@ void Parser::parse(int argc, char* argv[]){
             auditor.delItem(std::string(argv[i + 1]));
         }
         else if(strcmp(argv[i], "-tempname") == 0){
-            for(auto& i : auditor.items){
+            for(auto& k : auditor.items){
                 std::deque<std::string>* temp;
-                i.getContents(temp);
-                for(auto& j : *temp){
-                    std::cout << j << "\n";
+                k.getContents(temp);
+                for(auto& l : *temp){
+                    std::cout << l << "\n";
                 }
             }
+        }
+        else if(strcmp(argv[i], "-edititem") == 0){
+            assert(argv[i + 3] != NULL);
+            std::cout << argv[i + 2] << '\n';
+            assert(slib::isDigit(std::string(argv[i + 2])));
+            j = j + 3;
+            long index = atoi(argv[i + 2]) - 1;
+            Item* temp = nullptr;
+            auditor.openItem(std::string(argv[i + 1]));
+            auditor.getItem(std::string(argv[i + 1]), temp);
+            temp->editItem(index, argv[i + 3]);
+            auditor.saveItem(*temp);
         }
     }
 }

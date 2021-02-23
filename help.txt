@@ -7,10 +7,11 @@ Options:
     -o [index] [string]             Replace number in list as string given
     -n [index] [string]             Same as -o
     -p                              Preload all items from database to auditor
-    -fill [start] [end] [string]    Fills list between given value with string given
-    -cell [column] [row] [string]   Replace cell in table as string given
+    -fill [start] [end] [str]       Fills list between given value with string given
+    -cell [column] [row] [str]      Replace cell in table as string given
     -item [index]                   Open an item in list and print contents of item
     -additem [index] [...]          Adds an item to the database with value of given arguments
     -delitem [index]                Deletes an item
+    -edititem [index] [num] [str]   Edits content of indexed item with replacement string
     
     --help                          Displays this screen

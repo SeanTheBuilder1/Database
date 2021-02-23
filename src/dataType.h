@@ -21,6 +21,7 @@ public:
     Item(std::string i):database(dataGet()), index(i){};
     bool readItem(std::string index);
     bool getContents(std::deque<std::string>*& data);
+    void editItem(long index, const std::string& replacement);
     std::string getIndex();
 };
 
