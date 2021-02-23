@@ -150,6 +150,14 @@ void Parser::parse(int argc, char* argv[]){
             temp->editItem(index, argv[i + 3]);
             auditor.saveItem(*temp);
         }
+        else if(strcmp(argv[i], "-search") == 0){
+            assert(argv[i + 1] != NULL);
+            j = j + 1;
+            std::vector<std::string> temp = searcher.searchItem(argv[i + 1]);
+            for(auto& k : temp){
+                std::cout << k << '\n';
+            }
+        }
     }
 }
 

@@ -25,9 +25,6 @@ public:
     std::string getIndex();
 };
 
-class Searcher{
-    std::string searchItem(std::string keyword);
-};
 
 
 

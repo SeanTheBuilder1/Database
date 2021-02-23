@@ -1,6 +1,6 @@
 #include "slib.h"
 
-bool slib::isDigit(std::string word){
+bool slib::isDigit(const std::string& word){
     for(char i : word){
         if(!isdigit(i)) 
             return false;
@@ -16,7 +16,7 @@ bool slib::isDigit(std::string_view view){
     return true;
 }
 
-std::vector<std::string> slib::loadTxt(std::string filename){
+std::vector<std::string> slib::loadTxt(const std::string& filename){
     std::fstream file;
     std::vector<std::string> data;
 	file.open(filename, std::fstream::in);

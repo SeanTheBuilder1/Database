@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION "3.0")
 set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS "-std=c++17")
+set(CMAKE_CXX_FLAGS "-O2 -std=c++17")
 set(CMAKE_CXX_COMPILER "g++")
 
 
@@ -17,6 +17,8 @@ add_executable(
     "./src/main.cpp"
     "./src/parseArgs.h"
     "./src/parseArgs.cpp"
+    "./src/searcher.h"
+    "./src/searcher.cpp"
     "./src/slib.h"
     "./src/slib.cpp"
 )

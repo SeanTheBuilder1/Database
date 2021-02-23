@@ -24,6 +24,7 @@ private:
     friend class Parser;
     friend class Item;
     friend class Auditor;
+    friend class Searcher;
 public:
     Data(std::string path = "data.txt"):filePath(path){
         Init();
