@@ -10,6 +10,7 @@
 #include "auditor.h"
 #include "slib.h"
 #include "searcher.h"
+#include "interface.h"
 
 
 
@@ -18,6 +19,7 @@ private:
     Data& database;
     Auditor& auditor;
     Searcher& searcher;
+    Interface interface;
 public:
     Parser():database(dataGet()), auditor(getAuditor()), searcher(getSearcher()){};
     void parse(int argc, char* argv[]);

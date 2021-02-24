@@ -13,5 +13,6 @@ Options:
     -additem [index] [...]          Adds an item to the database with value of given arguments
     -delitem [index]                Deletes an item
     -edititem [index] [num] [str]   Edits content of indexed item with replacement string
+    -sort [index]                   Sorts indexed item
     
     --help                          Displays this screen

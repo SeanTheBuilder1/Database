@@ -33,6 +33,12 @@ bool Auditor::openItem(const std::string& index){
     //Get item from database
     if(temp.readItem(temp.getIndex())){
         //Add captured item to audit 
+        for(auto& i : audit){
+            if(temp.getIndex() == i){
+                std::cout << "Item already audited, no need to open\n";
+                return true;
+            }
+        }
         items.emplace_back(temp);
         audit.emplace_back(index);
         return true;

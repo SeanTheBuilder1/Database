@@ -1,5 +1,5 @@
 #ifndef DATATYPE
-#define DATAYPE
+#define DATATYPE
 
 #include <vector>
 #include <string>
