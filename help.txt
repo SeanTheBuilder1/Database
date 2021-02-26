@@ -13,6 +13,9 @@ Options:
     -additem [index] [...]          Adds an item to the database with value of given arguments
     -delitem [index]                Deletes an item
     -edititem [index] [num] [str]   Edits content of indexed item with replacement string
+    -search [keyword]               Finds item that includes indexed keyword in contents
+    -psearch [keyword]              Same as -search, but uses -p
     -sort [index]                   Sorts indexed item
+    -editor [index]                 Initialize editor for indexed item
     
     --help                          Displays this screen
