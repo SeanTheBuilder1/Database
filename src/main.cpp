@@ -7,8 +7,7 @@
 
 
 int main(int argc, char* argv[]){
-    Parser parser;
     //Parse command line arguments
-    parser.parse(argc, argv);
+    parse(argc, argv);
     std::cout << "Program ended\n";
 }

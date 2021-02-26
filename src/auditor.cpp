@@ -13,18 +13,20 @@ void Auditor::addItem(Item& item){
     if(std::find(database.dataSave.begin(), database.dataSave.end(), ("`" + item.getIndex())) == std::end(database.dataSave)){
         //Find terminator
         auto it = std::find(database.dataSave.begin(), database.dataSave.end(), "`");
-        std::deque<std::string> temp = item.contents;
-        //Add index to temp
-        temp.insert(temp.begin(), "`" + item.getIndex());
-        temp.emplace_back("`");
-        database.dataSave.erase(it);
-        //Insert temp to database starting from terminator
-        database.dataSave.insert(it, temp.begin(), temp.end());
-        //Save database
-        database.saveData(database.dataSave);
-        //Add item to audit
-        audit.emplace_back(item.getIndex());
-        items.emplace_back(item);
+        std::deque<std::string>* temp;
+        if(item.getContents(temp)){
+            //Add index to temp
+            temp->insert(temp->begin(), "`" + item.getIndex());
+            temp->emplace_back("`");
+            database.dataSave.erase(it);
+            //Insert temp to database starting from terminator
+            database.dataSave.insert(it, temp->begin(), temp->end());
+            //Save database
+            database.saveData(database.dataSave);
+            //Add item to audit
+            audit.emplace_back(item.getIndex());
+            items.emplace_back(item);
+        }
     }
 }
 
@@ -101,8 +103,10 @@ void Auditor::saveItem(Item& item){
     //if successful erase old contents of item from database copy and insert new contents 
     //and save database copy to merge to data.txt
     if(stopper){
+        std::deque<std::string>* temp;
+        item.getContents(temp);
         database.dataSave.erase(database.dataSave.begin() + beg, database.dataSave.begin() + end);
-        database.dataSave.insert(database.dataSave.begin() + beg, item.contents.begin(), item.contents.end());
+        database.dataSave.insert(database.dataSave.begin() + beg, temp->begin(), temp->end());
         database.saveData(database.dataSave);
     }
 }
@@ -131,6 +135,16 @@ bool Auditor::getItem(const std::string& index, Item* &item){
         };
     }
     return false;
+}
+
+bool Auditor::getAudit(std::deque<Item>* audit){
+    if(items.empty()){
+        return false;
+    }
+    else{
+        audit = &items;
+        return true;
+    }
 }
 
 Auditor& getAuditor(){

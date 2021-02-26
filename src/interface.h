@@ -9,14 +9,6 @@
 #include "auditor.h"
 
 
-class Interface{
-private:
-    Auditor& auditor;
-public:
-    Interface():auditor(getAuditor()){};
-    void editItem(Item* item);
-};
-
-
+void editItem(Item* item);
 
 #endif //INTERFACE

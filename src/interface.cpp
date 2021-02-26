@@ -42,8 +42,8 @@ T cinCheck(){
 }
 */
 
-void Interface::editItem(Item* item){
-
+void editItem(Item* item){
+    Auditor& auditor = getAuditor();
     std::deque<std::string>* contents;
     if(item->getContents(contents)){
         std::string temp;

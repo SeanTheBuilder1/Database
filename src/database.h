@@ -14,7 +14,6 @@
 
 class Data{
 private:
-    std::vector<std::string> dataSave;
     std::string filePath;
     std::fstream file; 
     int columns;
@@ -26,6 +25,7 @@ private:
     friend class Auditor;
     friend class Searcher;
 public:
+    std::vector<std::string> dataSave;
     Data(std::string path = "data.txt"):filePath(path){
         Init();
         metaParser();

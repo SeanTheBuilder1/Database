@@ -2,7 +2,9 @@
 
 
 
-void Parser::parse(int argc, char* argv[]){
+void parse(int argc, char* argv[]){
+    Data& database = dataGet();
+    Auditor& auditor = getAuditor();
     int j = 0;
     for(long i = 1; i < argc; ++i){
         //Pauser
@@ -123,7 +125,7 @@ void Parser::parse(int argc, char* argv[]){
             assert(argv[i + 1] != NULL);
             auditor.delItem(std::string(argv[i + 1]));
         }
-        else if(strcmp(argv[i], "-tempname") == 0){
+        /*else if(strcmp(argv[i], "-tempname") == 0){
             for(auto& k : auditor.items){
                 std::deque<std::string>* temp;
                 if(k.getContents(temp)){
@@ -132,7 +134,7 @@ void Parser::parse(int argc, char* argv[]){
                     }
                 }
             }
-        }
+        }*/
         else if(strcmp(argv[i], "-edititem") == 0){
             assert(argv[i + 3] != NULL);
             std::cout << argv[i + 2] << '\n';
@@ -149,7 +151,7 @@ void Parser::parse(int argc, char* argv[]){
         else if(strcmp(argv[i], "-search") == 0){
             assert(argv[i + 1] != NULL);
             j = j + 1;
-            std::vector<std::string> temp = searcher.searchItem(argv[i + 1]);
+            std::vector<std::string> temp = searchItem(argv[i + 1]);
             for(auto& k : temp){
                 std::cout << k << '\n';
             }
@@ -157,7 +159,7 @@ void Parser::parse(int argc, char* argv[]){
         else if(strcmp(argv[i], "-psearch") == 0){
             assert(argv[i + 1] != NULL);
             j = j + 1;
-            std::vector<std::string> temp = searcher.searchItemPreload(argv[i + 1]);
+            std::vector<std::string> temp = searchItemPreload(argv[i + 1]);
             for(auto& k : temp){
                 std::cout << k << '\n';
             }
@@ -178,7 +180,7 @@ void Parser::parse(int argc, char* argv[]){
             if(auditor.openItem(argv[i + 1])){
                 Item* item;
                 if(auditor.getItem(argv[i + 1], item))
-                    interface.editItem(item);
+                    editItem(item);
             }
         }
     }

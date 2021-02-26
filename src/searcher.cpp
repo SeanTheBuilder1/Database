@@ -1,6 +1,7 @@
 #include "searcher.h"
 
-std::vector<std::string> Searcher::searchItem(const std::string& keyword){
+std::vector<std::string> searchItem(const std::string& keyword){
+    Data& database = dataGet();
     std::vector<std::string> validIndices;
     for (long i = 0; i < database.dataSave.size(); i++){
         if(database.dataSave[i].find("`") == std::string::npos){
@@ -17,10 +18,13 @@ std::vector<std::string> Searcher::searchItem(const std::string& keyword){
     return validIndices;
 }
 
-std::vector<std::string> Searcher::searchItemPreload(const std::string& keyword){
-    std::vector<std::string> validIndices;
+std::vector<std::string> searchItemPreload(const std::string& keyword){
+    Data& database = dataGet();
     Auditor& auditor = getAuditor();
-    for(auto& i : auditor.items){
+    std::vector<std::string> validIndices;
+    std::deque<Item>* items;
+    auditor.getAudit(items);
+    for(auto& i : *items){
         std::deque<std::string>* contents;
         i.getContents(contents);
         if(std::find(contents->begin(), contents->end(), keyword) != contents->end()){
@@ -28,9 +32,4 @@ std::vector<std::string> Searcher::searchItemPreload(const std::string& keyword)
         }
     }
     return validIndices;
-}
-
-Searcher& getSearcher(){
-    static Searcher searcher;
-    return searcher;
 }
