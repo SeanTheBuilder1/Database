@@ -20,10 +20,8 @@ private:
     std::vector<std::string> loadData();
     void metaParser();
     void saveData(std::vector<std::string>& data);
-    friend class Parser;
     friend class Item;
     friend class Auditor;
-    friend class Searcher;
 public:
     std::vector<std::string> dataSave;
     Data(std::string path = "data.txt"):filePath(path){

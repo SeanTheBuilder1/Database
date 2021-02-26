@@ -11,8 +11,6 @@ private:
     std::vector<std::string> audit;
     std::deque<Item> items;
     Data& database;
-    friend class Parser;
-    friend class Searcher;
 public:
     Auditor():database(dataGet()){};
     bool getAudit(std::deque<Item>* audit);
