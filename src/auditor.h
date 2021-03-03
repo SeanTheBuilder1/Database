@@ -13,7 +13,7 @@ private:
     Data& database;
 public:
     Auditor():database(dataGet()){};
-    bool getAudit(std::deque<Item>* audit);
+    bool getAudit(std::deque<Item>*& audit);
     bool exist(const std::string& index);
     void addItem(Item& item);
     bool openItem(const std::string& index);

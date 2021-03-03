@@ -28,3 +28,36 @@ std::vector<std::string> slib::loadTxt(const std::string& filename){
 	file.clear();
     return data;
 }
+
+bool slib::fullOfSpace(const std::string& str){
+    for(auto& i : str){
+        if(!(i == ' ' || i == '\t')){
+            return false;
+        }
+    }
+    return true;
+}
+
+std::string slib::removeSpace(const std::string& str){
+    long firstchar{};
+    for(long i = 0; i < str.size(); ++i){
+        if(!(str[i] == ' ' || str[i] == '\t')){
+            firstchar = i;
+            break;
+        }
+    }
+    if(firstchar){
+        return str.substr(firstchar);
+    }
+    return str;
+}
+
+std::deque<std::string> slib::split_string_by_newline(const std::string& str){
+    auto result = std::deque<std::string>{};
+    auto ss = std::stringstream{str};
+
+    for (std::string line; std::getline(ss, line, '\n');)
+        if(!fullOfSpace(line))
+            result.push_back(removeSpace(line));
+    return result;
+}
