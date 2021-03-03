@@ -137,7 +137,7 @@ bool Auditor::getItem(const std::string& index, Item* &item){
         if(i.getIndex() == index){
             item = &i;
             return true;
-        };
+        }
     }
     return false;
 }

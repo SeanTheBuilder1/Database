@@ -23,6 +23,17 @@ bool Item::readItem(std::string index){
     return false;
 }
 
+void Item::replaceContents(std::vector<std::string>& cont){
+    contents.clear();
+    for(auto& i : cont){
+        contents.emplace_back(i);
+    }
+}
+
+void Item::replaceContents(std::deque<std::string>& cont){
+    contents = cont;
+}
+
 void Item::editItem(long index, const std::string& replacement){
     assert(index < contents.size());
     contents[index] = replacement;
