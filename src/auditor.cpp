@@ -80,6 +80,11 @@ void Auditor::saveItem(Item& item){
     long beg{0};
     long end{0};
     bool stopper = false;
+    if(slib::fullOfSpace(item.getIndex())){
+        return;
+    }
+
+
     //index line number of item for next iterator
     for(long i = 0; i < database.dataSave.size();  ++i){
         //Check if index matches
@@ -137,7 +142,7 @@ bool Auditor::getItem(const std::string& index, Item* &item){
     return false;
 }
 
-bool Auditor::getAudit(std::deque<Item>* audit){
+bool Auditor::getAudit(std::deque<Item>*& audit){
     if(items.empty()){
         return false;
     }
