@@ -33,3 +33,12 @@ std::vector<std::string> searchItemPreload(const std::string& keyword){
     }
     return validIndices;
 }
+
+long getDatabaseIndex(Item& item){
+    Data& database = dataGet();
+    for(int i = 2; i < database.dataSave.size(); ++i){
+        if(database.dataSave[i] == "`" + item.getIndex())
+            return i + 1;
+    }
+    return -1;
+}

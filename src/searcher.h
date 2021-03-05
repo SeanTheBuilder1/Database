@@ -9,6 +9,6 @@
 
 std::vector<std::string> searchItem(const std::string& keyword);
 std::vector<std::string> searchItemPreload(const std::string& keyword);
-
+long getDatabaseIndex(Item& item);
 
 #endif //SEARCHER

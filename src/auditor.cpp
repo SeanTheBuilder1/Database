@@ -81,6 +81,10 @@ void Auditor::delItem(const std::string& index){
     }
 }
 
+void Auditor::moveItem(Item& item, long destination){
+    
+}
+
 
 void Auditor::saveItem(Item& item){
     long beg{0};

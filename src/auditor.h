@@ -22,6 +22,7 @@ public:
     bool getItem(const std::string& index, Item* &item);
     long getAuditID(const std::string& index);
     long getItemID(const std::string& index);
+    void moveItem(Item& item, long destination);
     void loadAll();
 };
 

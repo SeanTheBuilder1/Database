@@ -125,16 +125,13 @@ void parse(int argc, char* argv[]){
             assert(argv[i + 1] != NULL);
             auditor.delItem(std::string(argv[i + 1]));
         }
-        /*else if(strcmp(argv[i], "-tempname") == 0){
-            for(auto& k : auditor.items){
-                std::deque<std::string>* temp;
-                if(k.getContents(temp)){
-                    for(auto& l : *temp){
-                        std::cout << l << "\n";
-                    }
-                }
-            }
-        }*/
+        else if(strcmp(argv[i], "-tempname") == 0){
+            assert(argv[i + 1] != NULL);
+            j = j + 1;
+            Item* item;
+            auditor.getItem(argv[i + 1], item);
+            std::cout << getDatabaseIndex(*item);
+        }
         else if(strcmp(argv[i], "-edititem") == 0){
             assert(argv[i + 3] != NULL);
             std::cout << argv[i + 2] << '\n';
