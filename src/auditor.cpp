@@ -82,9 +82,66 @@ void Auditor::delItem(const std::string& index){
 }
 
 void Auditor::moveItem(Item& item, long destination){
-    
+    long start, end;
+    std::tie(start, end) = getDatabaseIndex(item);
+    std::deque<std::string>* contents;
+    item.getContents(contents);
+    /*FUTURE OPTIMIZATION PROBABLY
+    if(start <= destination && destination <= end)
+        std::move_backward(database.dataSave.begin() + start, database.dataSave.begin() + end, std::inserter(database.dataSave, std::next(database.dataSave.begin() + destination)));
+    else
+        std::move(database.dataSave.begin() + start, database.dataSave.begin() + end, std::inserter(database.dataSave, std::next(database.dataSave.begin() + destination)));
+    */
+    //std::vector<std::string> copy;
+    //copy.reserve(end - start + 1);
+    //std::move(database.dataSave.begin() + start, database.dataSave.begin() + end, std::back_inserter(copy));
+    database.dataSave.erase(database.dataSave.begin() + start, database.dataSave.begin() + end);
+    if(end < destination){
+        destination -= contents->size();
+    }
+    //database.dataSave.insert(database.dataSave.begin() + destination, copy.begin(), copy.end());
+    database.dataSave.insert(database.dataSave.begin() + destination, contents->begin(), contents->end());
+    database.saveData(database.dataSave);
 }
 
+void Auditor::moveItem(Item& item, Item& destination){
+    long start, end;
+    std::tie(start, end) = getDatabaseIndex(destination);
+    if(end >= database.dataSave.size() - 1){
+        return moveItem(item, end);
+    }
+    return moveItem(item, start - 1);
+}
+
+void Auditor::moveToStart(Item& item){
+    moveItem(item, 2);
+}
+
+void Auditor::swapItem(Item& item, Item& destination){
+    long start, end, dstart, dend;
+    std::tie(start, end) = getDatabaseIndex(item);
+    std::tie(dstart, dend) = getDatabaseIndex(destination);
+
+    if(dstart < start){
+        //swap for convenience
+        return swapItem(destination, item);
+    }
+
+    database.dataSave.erase(database.dataSave.begin() + start, database.dataSave.begin() + end);
+    std::deque<std::string>* content;
+    std::deque<std::string>* dcontent;
+    item.getContents(content);
+    destination.getContents(dcontent);
+    content->emplace_front('`' + item.getIndex());
+    dcontent->emplace_front('`' + destination.getIndex());
+    database.dataSave.insert(database.dataSave.begin() + start, dcontent->begin(), dcontent->end());
+    long dIndex = ((dstart) - content->size()) + dcontent->size();
+    database.dataSave.erase(database.dataSave.begin() + dIndex, database.dataSave.begin() + (dend - dstart));
+    database.dataSave.insert(database.dataSave.begin() + dIndex, content->begin(), content->end());
+    content->pop_front();
+    dcontent->pop_front();
+    database.saveData(database.dataSave);
+}
 
 void Auditor::saveItem(Item& item){
     long beg{0};
