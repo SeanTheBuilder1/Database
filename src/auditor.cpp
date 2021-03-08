@@ -86,6 +86,7 @@ void Auditor::moveItem(Item& item, long destination){
     std::tie(start, end) = getDatabaseIndex(item);
     std::deque<std::string>* contents;
     item.getContents(contents);
+    contents->emplace_front('`' + item.getIndex());
     /*FUTURE OPTIMIZATION PROBABLY
     if(start <= destination && destination <= end)
         std::move_backward(database.dataSave.begin() + start, database.dataSave.begin() + end, std::inserter(database.dataSave, std::next(database.dataSave.begin() + destination)));
@@ -101,6 +102,7 @@ void Auditor::moveItem(Item& item, long destination){
     }
     //database.dataSave.insert(database.dataSave.begin() + destination, copy.begin(), copy.end());
     database.dataSave.insert(database.dataSave.begin() + destination, contents->begin(), contents->end());
+    contents->emplace_front();
     database.saveData(database.dataSave);
 }
 
@@ -110,7 +112,7 @@ void Auditor::moveItem(Item& item, Item& destination){
     if(end >= database.dataSave.size() - 1){
         return moveItem(item, end);
     }
-    return moveItem(item, start - 1);
+    return moveItem(item, end);
 }
 
 void Auditor::moveToStart(Item& item){
@@ -130,13 +132,14 @@ void Auditor::swapItem(Item& item, Item& destination){
     database.dataSave.erase(database.dataSave.begin() + start, database.dataSave.begin() + end);
     std::deque<std::string>* content;
     std::deque<std::string>* dcontent;
+    long diff = dend - dstart;
     item.getContents(content);
     destination.getContents(dcontent);
     content->emplace_front('`' + item.getIndex());
     dcontent->emplace_front('`' + destination.getIndex());
     database.dataSave.insert(database.dataSave.begin() + start, dcontent->begin(), dcontent->end());
     long dIndex = ((dstart) - content->size()) + dcontent->size();
-    database.dataSave.erase(database.dataSave.begin() + dIndex, database.dataSave.begin() + (dend - dstart));
+    database.dataSave.erase(database.dataSave.begin() + dIndex, database.dataSave.begin() + (diff + dIndex));
     database.dataSave.insert(database.dataSave.begin() + dIndex, content->begin(), content->end());
     content->pop_front();
     dcontent->pop_front();

@@ -126,13 +126,22 @@ void parse(int argc, char* argv[]){
             auditor.delItem(std::string(argv[i + 1]));
         }
         else if(strcmp(argv[i], "-swap") == 0){
-            assert(argv[i + 1] != NULL);
-            j = j + 1;
+            assert(argv[i + 2] != NULL);
+            j = j + 2;
             Item* item;
             Item* destination;
             auditor.getItem(argv[i + 1], item);
             auditor.getItem(argv[i + 2], destination);
             auditor.swapItem(*item, *destination);
+        }
+        else if(strcmp(argv[i], "-move") == 0){
+            assert(argv[i + 2] != NULL);
+            j = j + 2;
+            Item* item;
+            Item* destination;
+            auditor.getItem(argv[i + 1], item);
+            auditor.getItem(argv[i + 2], destination);
+            auditor.moveItem(*item, *destination);
         }
         else if(strcmp(argv[i], "-edititem") == 0){
             assert(argv[i + 3] != NULL);
