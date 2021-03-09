@@ -83,8 +83,10 @@ void Auditor::delItem(const std::string& index){
 
 void Auditor::saveDatabase(){
     std::vector<std::string> auditorData;
+    //Add current file config
     auditorData.emplace_back(database.dataSave[0]);
     auditorData.emplace_back(database.dataSave[1]);
+    //loop through every item and add its index and contents to vector
     for(auto& i : items){
         std::deque<std::string>* contents;
         auditorData.emplace_back('`' + i.getIndex());
@@ -94,29 +96,41 @@ void Auditor::saveDatabase(){
             }
         } 
     }
-    
+    //Add suffix
     auditorData.emplace_back("`");
+    //Save the captured data to database
     database.saveData(auditorData);
 }
 
 void Auditor::sort(){
+    //Sort the order of the items (not the contents)
     std::sort(items.begin(), items.end());
+    //Also the audit cause consistency
     std::sort(audit.begin(), audit.end());
+    //Workaround function, save the whole database
     saveDatabase();
+    //Check for audit-item consistency
     assert(checkIntegrity());
 }
 
 
 void Auditor::sort(std::function<bool(Item&, Item&)> compare){
+    //Sort items with user given compare function
     std::sort(items.begin(), items.end(), compare);
+    //Cant just use same sorting because it uses user given compare func
     fixAudit();
+    //Workaround function, save the whole database
     saveDatabase();
+    //Check for audit-item consistency
     assert(checkIntegrity());
 }
 
 
 void Auditor::fixAudit(){
+    //Make the index and audit line up
+    //First remove former audit
     audit.clear();
+    //Then add every index of every item
     for(auto& i : items){
         audit.emplace_back(i.getIndex());
     }
@@ -124,6 +138,7 @@ void Auditor::fixAudit(){
 
 
 bool Auditor::checkIntegrity(){
+    //Simple if equal shenanigans
     for(long i = 0; i < items.size(); ++i){
         if(items[i].getIndex() != audit[i]){
             return false;
@@ -135,6 +150,7 @@ bool Auditor::checkIntegrity(){
 
 
 void Auditor::moveItem(Item& item, long destination){
+    //yaaaa it doesn't look nice but it works
     long start, end;
     std::tie(start, end) = getDatabaseIndex(item);
     std::deque<std::string>* contents;
@@ -160,6 +176,7 @@ void Auditor::moveItem(Item& item, long destination){
 }
 
 void Auditor::moveItem(Item& item, Item& destination){
+    //Redirector function for move Item
     long start, end;
     std::tie(start, end) = getDatabaseIndex(destination);
     if(end >= database.dataSave.size() - 1){
@@ -169,10 +186,12 @@ void Auditor::moveItem(Item& item, Item& destination){
 }
 
 void Auditor::moveToStart(Item& item){
+    //Move to start just after the file config 
     moveItem(item, 2);
 }
 
 void Auditor::swapItem(Item& item, Item& destination){
+    //This function is messed up tbf
     long start, end, dstart, dend;
     std::tie(start, end) = getDatabaseIndex(item);
     std::tie(dstart, dend) = getDatabaseIndex(destination);
@@ -253,6 +272,7 @@ void Auditor::loadAll(){
 }
 
 long Auditor::getAuditID(const std::string& index){
+    //Get audit position from the std::deque, return -1 if none found
     for(long i = 0; i < audit.size(); ++i){
         if(audit[i] == index){
             return i;
@@ -262,6 +282,7 @@ long Auditor::getAuditID(const std::string& index){
 }
 
 long Auditor::getItemID(const std::string& index){
+    //Get item position from the std::deque, return -1 if none found
     for(long i = 0; i < items.size(); ++i){
         if(items[i].getIndex() == index){
             return i;

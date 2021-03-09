@@ -41,6 +41,8 @@ bool Item::getContents(std::deque<std::string>*& data){
     }
 }
 
+
+//SORT FUNCTION OVERLOADS
 void Item::sort(){
     std::sort(contents.begin(), contents.end());
 }
