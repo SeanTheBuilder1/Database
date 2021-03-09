@@ -10,11 +10,20 @@
 
 class Auditor{
 private:
+    //haven't worked out preload system
+    //bool preLoaded = false;
     std::vector<std::string> audit;
     std::deque<Item> items;
     Data& database;
 public:
     Auditor():database(dataGet()){};
+    
+    void saveDatabase();
+    void sort();
+    void sort(std::function<bool(Item&, Item&)> compare);
+    bool checkIntegrity();
+    void fixAudit();
+
     bool getAudit(std::deque<Item>*& audit);
     bool exist(const std::string& index);
     void addItem(Item& item);

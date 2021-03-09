@@ -24,10 +24,15 @@ public:
     void sort(std::function<bool(std::string, std::string)>);
     void sort(std::deque<std::string>::iterator x, std::deque<std::string>::iterator y);
     void sort(std::deque<std::string>::iterator x, std::deque<std::string>::iterator y, std::function<bool(std::string, std::string)> func);
-    std::string getIndex();
+    std::string getIndex() const;
 };
 
-
+bool operator>(const Item& x, const Item& y);
+bool operator<(const Item& x, const Item& y);
+bool operator==(const Item& x, const Item& y);
+bool operator>=(const Item& x, const Item& y);
+bool operator<=(const Item& x, const Item& y);
+bool operator!=(const Item& x, const Item& y);
 
 
 

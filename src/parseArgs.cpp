@@ -143,6 +143,9 @@ void parse(int argc, char* argv[]){
             auditor.getItem(argv[i + 2], destination);
             auditor.moveItem(*item, *destination);
         }
+        else if(strcmp(argv[i], "-sortdata") == 0){
+            auditor.sort();
+        }
         else if(strcmp(argv[i], "-edititem") == 0){
             assert(argv[i + 3] != NULL);
             std::cout << argv[i + 2] << '\n';

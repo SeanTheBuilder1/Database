@@ -52,13 +52,36 @@ void Item::sort(std::function<bool(std::string, std::string)> func){
 void Item::sort(std::deque<std::string>::iterator x, std::deque<std::string>::iterator y){
     std::sort(x, y);
 }
+
 void Item::sort(std::deque<std::string>::iterator x, std::deque<std::string>::iterator y, std::function<bool(std::string, std::string)> func){
     std::sort(x, y, func);
 }
 
-
-
-
-std::string Item::getIndex(){
+std::string Item::getIndex() const {
     return index;
 }
+
+//COMPARISON OPERATORS
+bool operator>(const Item& x, const Item& y){
+    return x.getIndex() > y.getIndex();
+}
+bool operator<(const Item& x, const Item& y){
+    return x.getIndex() < y.getIndex();
+}
+bool operator==(const Item& x, const Item& y){
+    return x.getIndex() == y.getIndex();
+}
+bool operator>=(const Item& x, const Item& y){
+    return !(x < y);
+}
+bool operator<=(const Item& x, const Item& y){
+    return !(x > y);
+}
+bool operator!=(const Item& x, const Item& y){
+    return !(x == y);
+}
+
+
+
+
+

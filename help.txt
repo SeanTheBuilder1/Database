@@ -4,18 +4,25 @@ Options:
     -print                          Print database as list
     -table                          Print databas as table with column in class
     -clear                          Clear database and add database format
+    
     -o [index] [string]             Replace number in list as string given
     -n [index] [string]             Same as -o
     -p                              Preload all items from database to auditor
+    
     -fill [start] [end] [str]       Fills list between given value with string given
     -cell [column] [row] [str]      Replace cell in table as string given
     -item [index]                   Open an item in list and print contents of item
+    
     -additem [index] [...]          Adds an item to the database with value of given arguments
     -delitem [index]                Deletes an item
     -edititem [index] [num] [str]   Edits content of indexed item with replacement string
+    -editor [index]                 Initialize editor for indexed item
+
     -search [keyword]               Finds item that includes indexed keyword in contents
     -psearch [keyword]              Same as -search, but uses -p
     -sort [index]                   Sorts indexed item
-    -editor [index]                 Initialize editor for indexed item
+    -sortdata                       Sorts the audit
+    -move [index] [index]           Move indexed item to other indexed item
+    -swap [index] [index]           Swaps indexed items on the database
     
     --help                          Displays this screen

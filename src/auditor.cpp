@@ -81,6 +81,59 @@ void Auditor::delItem(const std::string& index){
     }
 }
 
+void Auditor::saveDatabase(){
+    std::vector<std::string> auditorData;
+    auditorData.emplace_back(database.dataSave[0]);
+    auditorData.emplace_back(database.dataSave[1]);
+    for(auto& i : items){
+        std::deque<std::string>* contents;
+        auditorData.emplace_back('`' + i.getIndex());
+        if(i.getContents(contents)){
+            for(auto& j : *contents){
+                auditorData.push_back(j);
+            }
+        } 
+    }
+    
+    auditorData.emplace_back("`");
+    database.saveData(auditorData);
+}
+
+void Auditor::sort(){
+    std::sort(items.begin(), items.end());
+    std::sort(audit.begin(), audit.end());
+    saveDatabase();
+    assert(checkIntegrity());
+}
+
+
+void Auditor::sort(std::function<bool(Item&, Item&)> compare){
+    std::sort(items.begin(), items.end(), compare);
+    fixAudit();
+    saveDatabase();
+    assert(checkIntegrity());
+}
+
+
+void Auditor::fixAudit(){
+    audit.clear();
+    for(auto& i : items){
+        audit.emplace_back(i.getIndex());
+    }
+}
+
+
+bool Auditor::checkIntegrity(){
+    for(long i = 0; i < items.size(); ++i){
+        if(items[i].getIndex() != audit[i]){
+            return false;
+        }    
+    }
+    return true;
+}
+
+
+
 void Auditor::moveItem(Item& item, long destination){
     long start, end;
     std::tie(start, end) = getDatabaseIndex(item);
