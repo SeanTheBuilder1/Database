@@ -314,6 +314,12 @@ bool Auditor::getAudit(std::deque<Item>*& audit){
     }
 }
 
+void Auditor::openDatabase(const std::string& path){
+    database.openFile(path);
+    audit.clear();
+    items.clear();
+}
+
 Auditor& getAuditor(){
     static Auditor auditor;
     return auditor;

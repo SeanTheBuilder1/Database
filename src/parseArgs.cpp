@@ -194,6 +194,16 @@ void parse(int argc, char* argv[]){
                     editItem(item);
             }
         }
+        else if(strcmp(argv[i], "-file") == 0){
+            assert(argv[i + 1] != NULL);
+            j = j + 1;
+            try{
+                auditor.openDatabase(argv[i + 1]);
+            }
+            catch(const char* e){
+                std::cout << e << '\n';
+            }
+        }
     }
 }
 

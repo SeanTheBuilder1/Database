@@ -35,6 +35,8 @@ public:
     void printList();
     void printTable();
     void clearData();
+
+    void openFile(const std::string& path);
 };
 
 Data& dataGet();

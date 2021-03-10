@@ -25,4 +25,6 @@ Options:
     -move [index] [index]           Move indexed item to other indexed item
     -swap [index] [index]           Swaps indexed items on the database
     
+    -file [path]                    Open database file from given path
+
     --help                          Displays this screen
