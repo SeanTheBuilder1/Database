@@ -26,7 +26,6 @@ public:
     std::vector<std::string> dataSave;
     Data(std::string path = "data.txt"):filePath(path){
         Init();
-        metaParser();
     };
     void Init();
     void saveAlgo(int line, std::string replacement);

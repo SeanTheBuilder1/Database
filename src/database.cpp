@@ -2,6 +2,7 @@
 
 void Data::Init(){
     loadData();
+	metaParser();
 }
 
 void Data::metaParser(){
@@ -192,8 +193,7 @@ void Data::clearData(){
 
 void Data::openFile(const std::string& path){
 	filePath = path;
-	loadData();
-	metaParser();
+	Init();
 }
 
 
