@@ -3,6 +3,7 @@
 
 
 void parse(int argc, char* argv[]){
+    bool preLoaded = false;
     Data& database = dataGet();
     Auditor& auditor = getAuditor();
     int j = 0;
@@ -42,6 +43,7 @@ void parse(int argc, char* argv[]){
         else if(strcmp(argv[i], "-p") == 0){
             //Preload all
             auditor.loadAll();
+            preLoaded = true;
         }
         else if(strcmp(argv[i], "-fill") == 0){
             //Check if argument actually exists
@@ -130,11 +132,17 @@ void parse(int argc, char* argv[]){
             j = j + 2;
             Item* item;
             Item* destination;
+            auditor.openItem(argv[i + 1]);
+            auditor.openItem(argv[i + 2]);
             auditor.getItem(argv[i + 1], item);
             auditor.getItem(argv[i + 2], destination);
             auditor.swapItem(*item, *destination);
         }
         else if(strcmp(argv[i], "-move") == 0){
+            if(!preLoaded){
+                std::cout << "This command only works with flag -p\n";
+                continue;
+            }
             assert(argv[i + 2] != NULL);
             j = j + 2;
             Item* item;
@@ -144,6 +152,10 @@ void parse(int argc, char* argv[]){
             auditor.moveItem(*item, *destination);
         }
         else if(strcmp(argv[i], "-sortdata") == 0){
+            if(!preLoaded){
+                std::cout << "This command only works with flag -p\n";
+                continue;
+            }
             auditor.sort();
         }
         else if(strcmp(argv[i], "-edititem") == 0){
@@ -168,6 +180,10 @@ void parse(int argc, char* argv[]){
             }
         }
         else if(strcmp(argv[i], "-psearch") == 0){
+            if(!preLoaded){
+                std::cout << "This command only works with flag -p\n";
+                continue;
+            }
             assert(argv[i + 1] != NULL);
             j = j + 1;
             std::vector<std::string> temp = searchItemPreload(argv[i + 1]);
@@ -204,8 +220,21 @@ void parse(int argc, char* argv[]){
                 std::cout << e << '\n';
             }
         }
+        else if(strcmp(argv[i], "-tempname") == 0){
+            if(!preLoaded){
+                std::cout << "This command only works with flag -p\n";
+                continue;
+            }
+            assert(argv[i + 2] != NULL);
+            j = j + 2;
+            Item* item;
+            Item* destination;
+            auditor.getItem(argv[i + 1], item);
+            auditor.getItem(argv[i + 2], destination);
+            
+            auditor.moveItemImp(*item, *destination);
+        }
     }
 }
-
 
 

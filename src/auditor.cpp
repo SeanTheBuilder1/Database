@@ -100,6 +100,7 @@ void Auditor::saveDatabase(){
     auditorData.emplace_back("`");
     //Save the captured data to database
     database.saveData(auditorData);
+    database.dataSave = std::move(auditorData);
 }
 
 void Auditor::sort(){
@@ -147,7 +148,23 @@ bool Auditor::checkIntegrity(){
     return true;
 }
 
-
+void Auditor::moveItemImp(Item& item, Item& destination){
+    long i = getItemID(item.getIndex());
+    long j = getAuditID(item.getIndex());
+    long it = getItemID(destination.getIndex());
+    /*
+    std::move(items.begin() + i, items.begin() + i, std::inserter(items, std::next(items.begin() + it)));
+    */
+    Item temp = item;
+    items.erase(items.begin() + i);
+    items.emplace(items.begin() + it, std::move(temp));
+    for(auto& k : items){
+        std::cout << k.getIndex() << '\n';
+    }
+    fixAudit();
+    saveDatabase();
+    assert(checkIntegrity());
+}
 
 void Auditor::moveItem(Item& item, long destination){
     //yaaaa it doesn't look nice but it works
@@ -165,6 +182,7 @@ void Auditor::moveItem(Item& item, long destination){
     //std::vector<std::string> copy;
     //copy.reserve(end - start + 1);
     //std::move(database.dataSave.begin() + start, database.dataSave.begin() + end, std::back_inserter(copy));
+    
     database.dataSave.erase(database.dataSave.begin() + start, database.dataSave.begin() + end);
     if(end < destination){
         destination -= contents->size();
@@ -200,7 +218,6 @@ void Auditor::swapItem(Item& item, Item& destination){
         //swap for convenience
         return swapItem(destination, item);
     }
-
     database.dataSave.erase(database.dataSave.begin() + start, database.dataSave.begin() + end);
     std::deque<std::string>* content;
     std::deque<std::string>* dcontent;

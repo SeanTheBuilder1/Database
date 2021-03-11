@@ -161,6 +161,7 @@ void Data::saveData(std::vector<std::string>& data){
 		file << data[i] << "\n";
 	}
 	file << data[i];
+	
 	file.close();
 }
 

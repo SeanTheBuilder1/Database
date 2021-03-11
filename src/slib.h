@@ -1,13 +1,12 @@
+#ifndef SLIB
+#define SLIB
+
 #include <cstring>
 #include <string>
 #include <sstream>
 #include <fstream>
 #include <vector>
 #include <deque>
-
-
-#ifndef SLIB
-#define SLIB
 
 namespace slib{
     bool isDigit(const std::string& word);

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION "3.0")
 set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS "-O3 -std=c++17")
+set(CMAKE_CXX_FLAGS "-O2 -std=c++17")
 # set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 set(CMAKE_CXX_COMPILER "g++")
 
@@ -14,7 +14,8 @@ add_library(database STATIC
     "./src/dataType.cpp"
     "./src/searcher.cpp"
     "./src/slib.cpp"    
-) 
+)
+
 
 add_executable(
     main
@@ -29,4 +30,6 @@ target_include_directories(database PUBLIC auditor.h PUBLIC database.h PUBLIC da
 target_include_directories(main PUBLIC auditor.h PUBLIC database.h PUBLIC dataType.h PUBLIC searcher.h PUBLIC slib.h)
 
 
-target_link_libraries(main ${CMAKE_SOURCE_DIR}/libdatabase.a)
+target_link_libraries(main database)
+
+#${CMAKE_SOURCE_DIR}/libdatabase.a
