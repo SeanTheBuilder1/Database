@@ -107,7 +107,7 @@ std::vector<std::string> Data::loadData(){
 	std::string a;
 	//Get contents of member filePath
 	while (getline(file, a)) {
-		data.emplace_back(a);
+		data.emplace_back(std::move(a));
 	}
 	file.close();
 	//Save contents to member dataSave

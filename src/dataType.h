@@ -17,6 +17,13 @@ private:
     std::string index;
 public:
     Item(std::string i):index(i){};
+    Item(Item&& item):contents(std::move(item.contents)), index(std::move(item.index)){};
+    Item(Item& item):contents((item.contents)), index((item.index)){};
+    Item& operator=(Item&& item) noexcept{
+        contents = std::move(item.contents);
+        index = std::move(item.index);
+        return *this;
+    }
     bool readItem(std::string index);
     bool getContents(std::deque<std::string>*& data);
     void editItem(long index, const std::string& replacement);

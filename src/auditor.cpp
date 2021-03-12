@@ -44,7 +44,7 @@ bool Auditor::openItem(const std::string& index){
                 return true;
             }
         }
-        items.emplace_back(temp);
+        items.emplace_back(std::move(temp));
         audit.emplace_back(index);
         return true;
     }
@@ -189,7 +189,7 @@ void Auditor::moveItem(Item& item, long destination){
     }
     //database.dataSave.insert(database.dataSave.begin() + destination, copy.begin(), copy.end());
     database.dataSave.insert(database.dataSave.begin() + destination, contents->begin(), contents->end());
-    contents->emplace_front();
+    contents->pop_front();
     database.saveData(database.dataSave);
 }
 

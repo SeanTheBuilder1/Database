@@ -19,13 +19,13 @@ bool slib::isDigit(std::string_view view){
 std::vector<std::string> slib::loadTxt(const std::string& filename){
     std::fstream file;
     std::vector<std::string> data;
-	file.open(filename, std::fstream::in);
-	std::string a;
-	while (getline(file, a)) {
-		data.push_back(a);
-	}
-	file.close();
-	file.clear();
+    file.open(filename, std::fstream::in);
+    std::string a;
+    while (getline(file, a)) {
+        data.push_back(a);
+    }
+    file.close();
+    file.clear();
     return data;
 }
 
