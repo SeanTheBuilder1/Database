@@ -195,12 +195,13 @@ void Auditor::moveItem(Item& item, long destination){
 
 void Auditor::moveItem(Item& item, Item& destination){
     //Redirector function for move Item
-    long start, end;
+    long start, end, i;
     std::tie(start, end) = getDatabaseIndex(destination);
-    if(end >= database.dataSave.size() - 1){
+    std::tie(i, std::ignore) = getDatabaseIndex(item);
+    if(end >= database.dataSave.size() - 1 || end > i){
         return moveItem(item, end);
     }
-    return moveItem(item, end);
+    return moveItem(item, start);
 }
 
 void Auditor::moveToStart(Item& item){
